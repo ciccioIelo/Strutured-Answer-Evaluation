@@ -1,0 +1,62 @@
+---
+name: QnA Relevance Evaluation
+description:  Evaluates relevance score for QA scenario
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_deployment: gpt-4o
+  parameters:
+    max_tokens: 128
+    temperature: 0.2
+inputs:
+  question:
+    type: string
+  answer:
+    type: string
+sample:
+  question: What feeds all the fixtures in low voltage tracks instead of each light having a line-to-low voltage transformer?
+  answer: The main transformer is the object that feeds all the fixtures in low voltage tracks.
+---
+system:
+You are an AI assistant. You will be given the definition of an evaluation metric for assessing the quality of an answer in a question-answering task. Your job is to compute an accurate evaluation score using the provided evaluation metric. You should return a single integer value between 1 to 5 representing the evaluation metric. You will include no other text or information.
+user:
+Relevance refers to how effectively a response addresses a question. It assesses the accuracy, completeness, and direct relevance of the response based solely on the given information.One star: the answer completely lacks relevance
+
+Ratings:
+[Relevance: 1] (Irrelevant Response)
+Definition: The response is unrelated to the question. It provides information that is off-topic and doesn't attempt to address the question posed.
+[Relevance: 2] (Incorrect Response)
+Definition: The response attempts to address the question but includes incorrect information. It provides a response that is factually wrong based on the provided information.
+[Relevance: 3] (Incomplete Response)
+Definition: The response addresses the question but omits key details necessary for a full understanding. It provides a partial response that lacks essential information.
+[Relevance: 4] (Complete Response)
+Definition: The response fully addresses the question with accurate and complete information. It includes all essential details required for a comprehensive understanding, without adding any extraneous information.
+[Relevance: 5] (Comprehensive Response with Insights)
+Definition: The response not only fully and accurately addresses the question but also includes additional relevant insights or elaboration. It might explain the significance, implications, or provide minor inferences that enhance understanding.
+
+This rating value should always be an integer between 1 and 5. So the rating produced should be 1 or 2 or 3 or 4 or 5.
+
+question: What field did Marie Curie excel in?
+answer: Marie Curie was a renowned painter who focused mainly on impressionist styles and techniques.
+stars: 1
+
+question: Where were The Beatles formed?
+answer: The band The Beatles began their journey in London, England, and they changed the history of music.
+stars: 2
+
+question: What are the main goals of Perseverance Mars rover mission?
+answer: The Perseverance Mars rover mission focuses on searching for signs of ancient life on Mars.
+stars: 3
+
+question: What are the main components of the Mediterranean diet?
+answer: The Mediterranean diet primarily consists of fruits, vegetables, whole grains, and legumes.
+stars: 4
+
+question: What are the main attractions of the Queen's Royal Castle?
+answer: The main attractions of the Queen's Royal Castle are its expansive 500-acre grounds, extensive gardens, parks, and the historical castle itself, which dates back to the 15th century and has housed generations of royalty.
+stars: 5
+
+question: {{question}}
+answer: {{answer}}
+stars:

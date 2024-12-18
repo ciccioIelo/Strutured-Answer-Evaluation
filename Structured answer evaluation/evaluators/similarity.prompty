@@ -1,0 +1,49 @@
+---
+name: QnA Similarity Evaluation
+description:  Evaluates similarity score for QA scenario
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_deployment: gpt-4o
+  parameters:
+    max_tokens: 128
+    temperature: 0.2
+inputs:
+  question:
+    type: string
+  ground_truth:
+    type: string
+  answer:
+    type: string
+sample:
+  question: In un blocco MPS, esiste la section INOUT? 
+  ground_truth: Si, esiste la sezione INOUT in un blocco MPS. Questa sezione ha lo scopo di raggruppare tutti i simboli del blocco in oggetto che devono essere considerati sia come ingressi che uscite del blocco, ovvero variabili che sono sia in lettura che in scrittura.
+  answer: Sì, in un blocco MPS esiste la sezione INOUT. La sezione INOUT ha lo scopo di raggruppare tutti i simboli del blocco che devono essere considerati sia come ingressi che uscite del blocco (variabili che sono sia in lettura che scrittura).
+---
+system:
+You are an AI assistant. You will be given the definition of an evaluation metric for assessing the quality of an answer in a question-answering task. 
+Your job is to compute an accurate evaluation score using the provided evaluation metric. You should return a single integer value between 1 to 5 representing the evaluation metric. 
+You will include no other text or information.
+user:
+Similarity measures the degrees of similarity between the generated text and its ground truth with respect to a query. Similarity, as a metric, 
+measures the similarity between the predicted answer and the correct answer. If the information and content in the predicted answer is similar 
+or equivalent to the correct answer, then the value of the Equivalence metric should be high, else it should be low. Given the question, 
+correct answer, and predicted answer, determine the value of Equivalence metric using the following rating scale: 
+
+One star: the predicted answer is not at all similar to the correct answer 
+
+Two stars: the predicted answer is mostly not similar to the correct answer 
+
+Three stars: the predicted answer is somewhat similar to the correct answer 
+
+Four stars: the predicted answer is mostly similar to the correct answer 
+
+Five stars: the predicted answer is completely similar to the correct answer 
+
+This rating value should always be an integer between 1 and 5. So the rating produced should be 1 or 2 or 3 or 4 or 5.
+
+ground_truth: {{ground_truth}}
+question: {{question}}
+answer: {{answer}}
+stars:

@@ -1,0 +1,52 @@
+---
+name: QnA Fluency Evaluation
+description: Evaluates fluency score for QA scenario
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_deployment: gpt-4o
+  parameters:
+    max_tokens: 128
+    temperature: 0.2
+inputs:
+  answer:
+    type: string
+sample:
+  answer: The main transformer is the object that feeds all the fixtures in low voltage tracks.
+---
+system:
+You are an AI assistant. You will be given the definition of an evaluation metric for assessing the quality of an answer in a question-answering task. Your job is to compute an accurate evaluation score using the provided evaluation metric. You should return a single integer value between 1 to 5 representing the evaluation metric. You will include no other text or information.
+user:
+Fluency refers to the effectiveness and clarity of written communication, focusing on grammatical accuracy, vocabulary range, sentence complexity, coherence, and overall readability. It assesses how smoothly ideas are conveyed and how easily the text can be understood by the reader.One star: the answer completely lacks fluency
+[Fluency: 1] (Emergent Fluency) Definition: The response shows minimal command of the language. It contains pervasive grammatical errors, extremely limited vocabulary, and fragmented or incoherent sentences. The message is largely incomprehensible, making understanding very difficult.
+[Fluency: 2] (Basic Fluency) Definition: The response communicates simple ideas but has frequent grammatical errors and limited vocabulary. Sentences are short and may be improperly constructed, leading to partial understanding. Repetition and awkward phrasing are common.
+[Fluency: 3] (Competent Fluency) Definition: The response clearly conveys ideas with occasional grammatical errors. Vocabulary is adequate but not extensive. Sentences are generally correct but might lack complexity and variety. The text is coherent, and the message is easily understood with minimal effort.
+[Fluency: 4] (Proficient Fluency) Definition: The response is well-articulated with good control of grammar and a varied vocabulary. Sentences are complex and well-structured, demonstrating coherence and cohesion. Minor errors might occur but don't affect overall understanding. The text flows smoothly, and ideas are connected logically.
+[Fluency: 5] (Exceptional Fluency) Definition: The response demonstrates an exceptional command of language with sophisticated vocabulary and complex, varied sentence structures. It's coherent, cohesive, and engaging, with precise and nuanced expression. Grammar is flawless, and the text reflects a high level of eloquence and style.
+
+This rating value should always be an integer between 1 and 5. So the rating produced should be 1 or 2 or 3 or 4 or 5.
+
+question: What did you have for breakfast today?
+answer: Breakfast today, me eating cereal and orange juice very good.
+stars: 1
+
+question: How do you feel when you travel alone?
+answer: Alone travel, nervous, but excited also. I feel adventure and like its time.
+stars: 2
+
+question: When was the last time you went on a family vacation?
+answer: Last family vacation, it took place in last summer. We traveled to a beach destination, very fun.
+stars: 3
+
+question: What is your favorite thing about your job?
+answer: My favorite aspect of my job is the chance to interact with diverse people. I am constantly learning from their experiences and stories.
+stars: 4
+
+question: Can you describe your morning routine?
+answer: Every morning, I wake up at 6 am, drink a glass of water, and do some light stretching. After that, I take a shower and get dressed for work. Then, I have a healthy breakfast, usually consisting of oatmeal and fruits, before leaving the house around 7:30 am.
+stars: 5
+
+question: {{question}}
+answer: {{answer}}
+stars:

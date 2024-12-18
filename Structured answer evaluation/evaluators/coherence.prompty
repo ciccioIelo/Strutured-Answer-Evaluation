@@ -1,0 +1,66 @@
+---
+name: QnA Coherence Evaluation
+description: Evaluates coherence score for QA scenario
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_deployment: gpt-4o
+  parameters:
+    max_tokens: 128
+    temperature: 0.2
+inputs:
+  question:
+    type: string
+  answer:
+    type: string
+sample:
+  question: What feeds all the fixtures in low voltage tracks instead of each light having a line-to-low voltage transformer?
+  answer: The main transformer is the object that feeds all the fixtures in low voltage tracks.
+---
+system:
+You are an AI assistant. You will be given the definition of an evaluation metric for assessing the quality of an answer in a question-answering task. Your job is to compute an accurate evaluation score using the provided evaluation metric. You should return a single integer value between 1 to 5 representing the evaluation metric. You will include no other text or information.
+
+user:
+Coherence measures the logical and orderly presentation of ideas in a response, allowing the reader to easily follow and understand the writer's train of thought. A coherent response directly addresses the question with clear connections between sentences and paragraphs, using appropriate transitions and a logical sequence of ideas.
+One star: the answer completely lacks coherence
+Two stars: the answer mostly lacks coherence
+Three stars: the answer is partially coherent
+Four stars: the answer is mostly coherent
+Five stars: the answer has perfect coherency
+
+This rating value should always be an integer between 1 and 5. So the rating produced should be 1 or 2 or 3 or 4 or 5.
+[Coherence: 1] (Incoherent Response)
+Definition: The response lacks coherence entirely. It consists of disjointed words or phrases that don't form complete or meaningful sentences. There's no logical connection to the question, making the response incomprehensible.
+[Coherence: 2] (Poorly Coherent Response)
+Definition: The response shows minimal coherence with fragmented sentences and limited connection to the question. It contains some relevant keywords but lacks logical structure and clear relationships between ideas, making the overall message difficult to understand.
+[Coherence: 3] (Partially Coherent Response)
+Definition: The response partially addresses the question with some relevant information but exhibits issues in the logical flow and organization of ideas. Connections between sentences might be unclear or abrupt, requiring the reader to infer the links. The response might lack smooth transitions and might present ideas out of order.
+[Coherence: 4] (Coherent Response)
+Definition: The response is coherent and effectively addresses the question. Ideas are logically organized with clear connections between sentences and paragraphs. Appropriate transitions are used to guide the reader through the response, which flows smoothly and is easy to follow.
+[Coherence: 5] (Highly Coherent Response)
+Definition: The response is exceptionally coherent, demonstrating sophisticated organization and flow. Ideas are presented in a logical and seamless manner, with excellent use of transitional phrases and cohesive devices. The connections between concepts are clear and enhance the reader's understanding. The response thoroughly addresses the question with clarity and precision.
+
+question: What is your favorite indoor activity and why do you enjoy it?
+answer: I like pizza. The sun is shining.
+stars: 1
+
+question: Can you describe your favorite movie without giving away any spoilers?
+answer: It is a science fiction movie. There are dinosaurs. The actors eat cake. People must stop the villain.
+stars: 2
+
+question: What are some benefits of regular exercise?
+answer: Regular exercise improves your mood. A good workout also helps you sleep better. Trees are green.
+stars: 3
+
+question: How do you cope with stress in your daily life?
+answer: I usually go for a walk to clear my head. Listening to music helps me relax as well. Stress is a part of life, but we can manage it through some activities.
+stars: 4
+
+question: What can you tell me about climate change and its effects on the environment?
+answer: Climate change has far-reaching effects on the environment. Rising temperatures result in the melting of polar ice caps, contributing to sea-level rise. Additionally, more frequent and severe weather events, such as hurricanes and heatwaves, can cause disruption to ecosystems and human societies alike.
+stars: 5
+
+question: {{question}}
+answer: {{answer}}
+stars:

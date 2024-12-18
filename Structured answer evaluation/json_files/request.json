@@ -1,0 +1,17 @@
+[
+    {
+        "Nr":1,
+        "Domanda":"sigla PLC safety Beckhoff",
+        "Ground truth":"La sigla PLC di sicurezza Beckhoff comunemente utilizzata nei documenti e EL6910. Questo modulo funge da PLC di sicurezza all'interno del sistema di sicurezza integrato TwinSAFE di Beckhoff."
+    },
+    {
+        "Nr":4,
+        "Domanda":"In un blocco MPS, esiste la section INOUT?",
+        "Ground truth":"Si, esiste la sezione INOUT in un blocco MPS. Questa sezione ha lo scopo di raggruppare tutti i simboli del blocco in oggetto che devono essere considerati sia come ingressi che uscite del blocco, ovvero variabili che sono sia in lettura che in scrittura."
+    },
+    {
+        "Nr":7,
+        "Domanda":"Ho l'errore 4115 come risolvo",
+        "Ground truth":"Ho l'errore 4115 come risolvo\nL'errore 4115 \"NESSUNA GESTIONE DRIVER\" si verifica solo per macchine che prevedono slave SLVD. Questo errore indica che non \u00e8 stato rilevato un EW15 diverso da 0 associato a un driver presente e mappato nel relativo ES. Per risolvere questo problema, puoi seguire questi passaggi:\n\n1. **Verifica la presenza di un EW15 diverso da 0**: Assicurati che il driver sia correttamente mappato e che ci sia un valore EW15 diverso da 0 associato ad esso.\n2. **Controlli di TIMEOUT CONFIGURAZIONE DRIVER**: Effettua gli stessi controlli che faresti per un timeout di configurazione del driver:\n- Verifica degli indirizzi associati nel configuratore di rete**: Assicurati che l'indirizzo associato nel configuratore di rete corrisponda al simbolo corretto, come @$ parmot o @# parmot 1.\n- Controllo degli errori di attivazione degli extra segment nel codice MPS**: Verifica le istruzioni ACT e la notazione En,m \/ EB \/ EW \/ ED 1."
+    }
+]
